@@ -23,13 +23,13 @@ export default function TextForm(props) {
         setText(event.target.value);
     }
 
-    const [text, setText] = useState("Sample text here");
+    const [text, setText] = useState("");
 
     return (
         <>
         <div className="container">
             <div className="my-5">
-                <h3>{props.heading}</h3>
+                <h3><b>{props.heading}</b></h3>
                 <div className="my-3">
                     <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
                 </div>
@@ -43,9 +43,15 @@ export default function TextForm(props) {
                 </div>
             </div>
         </div>
-        <div className="container">
-            <h3>Your Text Summary</h3>
+        <div className="container mb-5 pb-3">
+            <h3><b>Your Text Summary</b></h3>
             <p>{text.split(" ").length} words & {text.length} characters</p>
+            <p>{(0.008 * text.length).toFixed(2)} Minutes to read this content</p>
+            <h3><b>Text Preview</b></h3>
+            <p className="font-monospace text-justify" style={{ textAlign: 'justify' }}>{text}</p>
+            <footer className="text-end position-fixed w-100 pt-3" style={{ right: 0, bottom: 0, backgroundColor: '#F8F9FA' }}>
+                <p className="small pe-4">Last Modified {document.lastModified}</p>
+            </footer>
         </div>
         </>
     )
