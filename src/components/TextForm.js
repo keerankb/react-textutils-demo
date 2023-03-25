@@ -7,12 +7,14 @@ export default function TextForm(props) {
     const handleUpperCase = () => {
         let newText = text.toUpperCase();
         setText(newText);
+        props.showAlert('Text converted to UpperCase', 'success');
     }
 
     //To lower case
     const handleLowerCase = () => {
         let newText = text.toLowerCase();
         setText(newText);
+        props.showAlert('Text converted to LowerCase', 'success');
     }
     
     //To set dynamic value of text onChange
@@ -23,12 +25,13 @@ export default function TextForm(props) {
     //To Clear the text field
     const handleClear = () => {
         setText('');
+        props.showAlert('Text Cleared', 'success');
     }
 
     //To copy text
     const handleCopyText = () => {
         navigator.clipboard.writeText(text)
-        alert("Text Copied : " + text);
+        props.showAlert("Text Copied", "success");
     }
 
     //To speak the entered text
@@ -42,6 +45,7 @@ export default function TextForm(props) {
     const handleTitleCase = () => {
         let newText = text.toLowerCase().split(' ').map(el => el.charAt(0).toUpperCase() + el.slice(1)).join(" ");
         setText(newText);
+        props.showAlert('Text converted to TitleCase', 'success');
     }
 
     //To Sentence case
@@ -49,6 +53,7 @@ export default function TextForm(props) {
         let newText = text.toLowerCase();
         let ActualWord = newText.charAt(0).toUpperCase() + newText.slice(1);
         setText(ActualWord);
+        props.showAlert('Text converted to SentenceCase', 'success');
     }
 
     //To download the content in text file
@@ -60,6 +65,7 @@ export default function TextForm(props) {
         element.href = URL.createObjectURL(file);
         element.download = "My Text.txt";
         element.click();
+        props.showAlert('File Downloaded', 'success');
     }
 
     //To remove extra spaces from text, also from beginning & ending
@@ -73,22 +79,23 @@ export default function TextForm(props) {
         })
         let desiredResult = joinedWords.trim();
         setText(desiredResult);
+        props.showAlert('Extra space removed', 'success');
     }
-
-    // //To iNVERSE cASE
-    // const handleInverseCase = () => {
-    //     console.log("Inverse Case");
-    //     let wordz = text.split(' ');
-    //     console.log(wordz);
-    // }
 
     //To add bullets '• ' before each line of the string 
     const handleAddingBulletPoints = () => {
         let match = /^/gm
         let entity = '• '
         let updated_text = text.replace(match, entity)
-        setText(updated_text)  
+        setText(updated_text);
+        props.showAlert('Added bullet points', 'success');
     }
+
+    //To count words (without space)
+    function countWords(str) {
+        const arr = str.split(' ');
+        return arr.filter(word => word !== '').length;
+      }
 
     // //removes every whitespace from the string including newlines
     // const WhiteSpace = () => {
@@ -118,11 +125,11 @@ export default function TextForm(props) {
 
     return (
         <>
-        <div className="container">
+        <div className="container" style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'white':'#3B3B3B'}}>
             <div className="my-5">
                 <h3><b>{props.heading}</b></h3>
                 <div className="my-3">
-                    <textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+                    <textarea style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'white':'#3B3B3B'}} className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
                 </div>
                 <button className="btn btn-primary me-2 mt-2" onClick={handleUpperCase}>Uppercase</button>
                 <button className="btn btn-primary me-2 mt-2" onClick={handleLowerCase}>Lowercase</button>
@@ -134,18 +141,20 @@ export default function TextForm(props) {
                 <button className="btn btn-primary me-2 mt-2" onClick={handleDownloadFile}>Download Text</button>
                 <button className="btn btn-primary me-2 mt-2" onClick={handleExtraSpaces}>Extra Space</button>
                 <button className="btn btn-primary me-2 mt-2" onClick={handleAddingBulletPoints}>Add Bullet Points</button>
-                {/* <button className="btn btn-primary me-2" onClick={handleInverseCase}>Inverse case</button> */}
 
 
             </div>
         </div>
-        <div className="container mb-5 pb-3">
+        <div className="container mb-5 pb-3" style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'white':'#3B3B3B'}}>
             <h3><b>Your Text Summary</b></h3>
-            <p>{text.split(" ").length} words & {text.length} characters</p>
+            {/* <p>{text.split(" ").length} words & {text.length} characters</p> */}
+            {/* <p>{text.replace(/ /g, "").length} words & {text.length} characters</p> */}
+            {/* <p>{text.match(/(\w+)/g).length} words & {text.length} characters</p> */}
+            <p>{countWords(text)} words & {text.length} characters</p>
             <p>{(0.008 * text.length).toFixed(2)} Minutes to read this content</p>
             <h3><b>Text Preview</b></h3>
-            <p className="font-monospace text-justify" style={{ textAlign: 'justify' }}>{text}</p>
-            <footer className="text-end position-fixed w-100 pt-3" style={{ right: 0, bottom: 0, backgroundColor: '#F8F9FA' }}>
+            <p className="font-monospace text-justify" style={{ textAlign: 'justify' }}>{text.length>0?text:'Enter your text in the above textarea for preview'}</p>
+            <footer style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'#F8F9FA':'#212529', right: 0, bottom: 0, zIndex: 1 }} className="text-end position-fixed w-100 pt-3">
                 <p className="small pe-4">Last Modified {document.lastModified}</p>
             </footer>
         </div>
