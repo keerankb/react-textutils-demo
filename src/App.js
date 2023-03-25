@@ -2,13 +2,13 @@ import './App.css';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import React, { useState } from 'react'
-// import About from './components/About';
+import About from './components/About';
 import Alerts from './components/Alerts';
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Route
-// } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
 
   const toggleMode = () => {
     if(mode==='light') {
-      document.title = "TextUtils - Dark Mode";
+      // document.title = "TextUtils - Dark Mode";
       document.body.style.backgroundColor = '#3B3B3B'
       setMode('dark');
       showAlert('Dark mode enabled', 'success');
@@ -37,7 +37,7 @@ function App() {
       //   document.title = "TextUtils - Text Editor";
       // }, 2500);
     } else {
-      document.title = "TextUtils - Light Mode";
+      // document.title = "TextUtils - Light Mode";
       document.body.style.backgroundColor = 'white'
       setMode('light');
       showAlert('Light mode enabled', 'success');
@@ -46,18 +46,16 @@ function App() {
 
   return (
     <>
-    {/* <Router> */}
+    <Router>
       <Navbar title="TextUtils" menuOne="Home" menuTwo="About Us" mode={mode} toggleMode={toggleMode}/>
       <div className="container mb-5 pb-5">
         <Alerts alert={alert}/>
-        <TextForm heading="Enter your text here to get desired output" showAlert={showAlert} mode={mode}/>
-        {/* <Routes>
+        <Routes>
             <Route exact path="/about" element={<About mode={mode}/>} />
-            <Route exact path="/" element={<TextForm heading="Enter your text here to get desired output" showAlert={showAlert} mode={mode}/>} />
-        </Routes> */}
-        {/* <About mode={mode}/> */}
+            <Route exact path="/" element={<TextForm heading="Try TextUtils - Word Counter, Character Counter, Download the text file" showAlert={showAlert} mode={mode}/>} />
+        </Routes>
       </div>
-    {/* </Router> */}
+    </Router>
     </>
   );
 }
