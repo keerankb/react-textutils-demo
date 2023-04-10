@@ -5,7 +5,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Example Application
-To see an example application of this application, see https://github.com/keerankb/react-textutils-demo
+To see an example application of this application, see https://keerankb.github.io/react-textutils-demo/
 
 ## Available Scripts
 
