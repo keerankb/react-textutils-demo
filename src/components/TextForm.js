@@ -128,31 +128,39 @@ export default function TextForm(props) {
         <div className="container" style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'white':'#3B3B3B'}}>
             <div className="my-5">
                 <h3><b>{props.heading}</b></h3>
-                <div className="my-3">
-                    <textarea style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'white':'#3B3B3B'}} className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+                <div className='row mt-4'>
+                    <div className='col-12 col-lg-6'>
+                        <div className="my-3">
+                            <textarea style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'white':'#3B3B3B'}} className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="12"></textarea>
+                        </div>
+                    </div>
+                    {/* <hr /> */}
+                    <div className='col-12 col-lg-6 my-3'>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleUpperCase}>Uppercase</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleLowerCase}>Lowercase</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleClear}>Clear</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleCopyText}>Copy to Clipboard</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleSpeak}>Speak</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleTitleCase}>Title Case</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleSentenceCase}>Sentence case</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleDownloadFile}>Download Text</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleExtraSpaces}>Extra Space</button>
+                        <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleAddingBulletPoints}>Add Bullet Points</button>
+                        <br/>
+                        <hr/>
+                        <h3><b>Your Text Summary</b></h3>
+                        {/* <p>{text.split(" ").length} words & {text.length} characters</p> */}
+                        {/* <p>{text.replace(/ /g, "").length} words & {text.length} characters</p> */}
+                        {/* <p>{text.match(/(\w+)/g).length} words & {text.length} characters</p> */}
+                        {/* <p>{countWords(text)} words & {text.length} characters</p> */}
+                        <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words & {text.length} characters</p>
+                        <p>{(0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length).toFixed(2)} Minutes to read this content</p>
+                    </div>
                 </div>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleUpperCase}>Uppercase</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleLowerCase}>Lowercase</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleClear}>Clear</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleCopyText}>Copy to Clipboard</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleSpeak}>Speak</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleTitleCase}>Title Case</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleSentenceCase}>Sentence case</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleDownloadFile}>Download Text</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleExtraSpaces}>Extra Space</button>
-                <button disabled={text.length===0} className="btn btn-primary me-2 mt-2" onClick={handleAddingBulletPoints}>Add Bullet Points</button>
-
-
             </div>
         </div>
         <div className="container mb-5 pb-3" style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'white':'#3B3B3B'}}>
-            <h3><b>Your Text Summary</b></h3>
-            {/* <p>{text.split(" ").length} words & {text.length} characters</p> */}
-            {/* <p>{text.replace(/ /g, "").length} words & {text.length} characters</p> */}
-            {/* <p>{text.match(/(\w+)/g).length} words & {text.length} characters</p> */}
-            {/* <p>{countWords(text)} words & {text.length} characters</p> */}
-            <p>{text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words & {text.length} characters</p>
-            <p>{(0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length).toFixed(2)} Minutes to read this content</p>
+            <hr className='my-5' />
             <h3><b>Text Preview</b></h3>
             <p className="font-monospace text-justify" style={{ textAlign: 'justify' }}>{text.length>0?text:'Nothing to preview'}</p>
             <footer style={{color : props.mode==='light'?'black':'white', backgroundColor: props.mode==='light'?'#F8F9FA':'#212529', right: 0, bottom: 0, zIndex: 1 }} className="text-end position-fixed w-100 pt-3">
