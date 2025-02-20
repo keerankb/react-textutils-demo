@@ -9,7 +9,11 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import ReactGA from "react-ga4";
 
+ReactGA.initialize("G-V60J60VCP5");
+
+ReactGA.send({ hitType: "pageview", page: window.location.pathname, title: "Custom Title" });
 
 function App() {
 
